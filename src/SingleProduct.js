@@ -11,10 +11,12 @@ import {TbReplace} from "react-icons/tb"
 import {MdSecurity} from "react-icons/md"
 import Star from './components/Star'
 import AddToCart from "./components/AddToCart";
+import {SingleproductShimmer} from "./Helpers/Shimmer"
 
 
 
 const SingleProduct = () => {
+
 
   const {getSingleProduct,isSingleLoading,singleProduct} = useProductContext()
   const API = "https://api.pujakaitem.com/api/products"
@@ -26,14 +28,15 @@ const SingleProduct = () => {
   
   React.useEffect(()=>{
     getSingleProduct(`${API}?id=${id}`)
+    document.documentElement.scrollTop = 0
   },[])
 
-  if(isSingleLoading){
+  if(isSingleLoading){ 
     return(
-      <div className="page_loading">Loading...</div>
+      <SingleproductShimmer />
     )
   }
-
+  
   return (
     <Wrapper>
       <PageNavigation title={name}/>

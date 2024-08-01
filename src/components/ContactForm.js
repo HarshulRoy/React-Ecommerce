@@ -4,7 +4,9 @@ import { Button } from '../styles/Button'
 import { useAuth0 } from "@auth0/auth0-react";
 
 const ContactForm = () => {
-
+  const [text,setText] = React.useState('')
+  const [email,setEmail] = React.useState('')
+  const [note,setNote] = React.useState('')
   const {user, isAuthenticated} = useAuth0();
 
   return (
@@ -12,9 +14,9 @@ const ContactForm = () => {
         <div  className='form-container'>
         <form action="https://formspree.io/f/xvojklob" method='POST'>
             <div className='form-container--items'>
-                <div><input type="text" value={isAuthenticated? user.nickname:null} required autoComplete='off' name='username' placeholder='username'/></div>
-                <div><input type="email" value={isAuthenticated? user.email:null} required autoComplete='off' name='email' placeholder='email' /></div>
-                <div><textarea type="text" required autoComplete='off' name='textarea'  placeholder='message'/></div>
+                <div><input onChange={(e)=>setText(e.target.value)} type="text" value={isAuthenticated? user.nickname:text} required autoComplete='off' name='username' placeholder='username'/></div>
+                <div><input onChange={(e)=>setEmail(e.target.value)} type="email" value={isAuthenticated? user.email:email} required autoComplete='off' name='email' placeholder='email' /></div>
+                <div><textarea onChange={(e)=>setNote(e.target.value)} type="text" value={note} required autoComplete='off' name='textarea'  placeholder='message'/></div>
             </div>
             <Button>Send</Button>
         </form>

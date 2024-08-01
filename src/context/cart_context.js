@@ -6,7 +6,7 @@ const initialState = {
     cart: JSON.parse(localStorage.getItem("addCart")) || [],
     total_item:"",
     total_price:"",
-    shipping_fee: 500,
+    shipping_fee: 500, 
 }
 
 const CartProvider = ({children}) => {

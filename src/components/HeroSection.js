@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import {Button} from '../styles/Button'
-
+import img from "../images/hero.jpg"
 const HeroSection = ({myName}) => {
     const {name}=myName
   return (
@@ -24,7 +24,7 @@ const HeroSection = ({myName}) => {
         <div className="hero-section-image">
           <figure>
             <img
-              src={require("images/hero.jpg")}
+              src={img}
               alt=""
               className="img-style"
             />

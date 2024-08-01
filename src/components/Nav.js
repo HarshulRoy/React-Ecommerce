@@ -1,85 +1,134 @@
-import React from 'react'
-import style from 'styled-components'
-import {NavLink} from 'react-router-dom'
-import {FiShoppingCart} from 'react-icons/fi'
-import {CgMenu,CgClose} from 'react-icons/cg'
-import {useCartContext} from '../context/cart_context'
+import React from "react";
+import style from "styled-components";
+import { NavLink } from "react-router-dom";
+import { FiShoppingCart } from "react-icons/fi";
+import { CgMenu, CgClose } from "react-icons/cg";
+import { useCartContext } from "../context/cart_context";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Button } from '../styles/Button'
-
+import { Button } from "../styles/Button";
 
 const Nav = () => {
+  const { total_item } = useCartContext();
+  const [menuIcon, setMenuIcon] = React.useState();
+  const [status, setStatus] = React.useState("home");
+  const { user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
 
-    const {total_item} = useCartContext()
-    const [menuIcon,setMenuIcon]=React.useState()
-    const [status,setStatus]=React.useState({state1:true,state2:false,state3:false,state4:false,state5:false})
-    const {user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
-    // console.log(user.given_name,user.locale,user.middle_name,user.name,user.nickname);
-    let initialStatus = {
-        state1:false,
-        state2:false,
-        state3:false,
-        state4:false,
-        state5:false,
+  const changingState = (e) => {
+    console.log(e.target);
+    console.log(e.target.name);
+    if (e.target.name) {
+      setStatus(e.target.name);
     }
-
-    const changingState = (e) => {
-
-        console.log(e.target)
-
-        setStatus({...initialStatus, [e.target.name]:true})
-        setMenuIcon(false)
-    }
-    const change = (e) => {
-        setStatus({...initialStatus})
-    }
-
+  };
+  function change() {
+    setStatus("cart");
+  }
 
   return (
     <Wrapper>
-        <div className={menuIcon?"navbar active":"navbar"}>
-      <ul className='navbar-lists'>
-        <li>
-            <NavLink to='/' name="state1" className={status.state1?"navbar-link is-active":"navbar-link"} onClick={changingState}>Home </NavLink>
-        </li>
-        <li>
-            <NavLink to='/about' name="state2" className={status.state2?"navbar-link is-active":"navbar-link"} onClick={changingState}>ABOUT</NavLink>
-        </li>
-        <li>
-            <NavLink to='/product' name="state3" className={status.state3?"navbar-link is-active":"navbar-link"} onClick={changingState}>PRODUCTS</NavLink>
-        </li>
-        <li>
-            <NavLink to='/contact' name="state4" className={status.state4?"navbar-link is-active":"navbar-link"} onClick={changingState}>CONTACT</NavLink>
-        </li>
-        
-        {isAuthenticated && <li><p className='username'>{user.nickname}</p></li>}
-        
-
-        { !isAuthenticated ? 
-        <li><Button onClick={() => loginWithRedirect()}>Log In</Button></li>:
-        <li><Button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Log Out</Button></li>
-        }
-        <li onClick={change}>
-            <NavLink to='/cart' className="navbar-link cart-trolley--link">
-                <FiShoppingCart className="cart-trolley" />
-                <span className='cart-total--item'>{total_item}</span>
+      <div className={menuIcon ? "navbar active" : "navbar"}>
+        <ul className="navbar-lists" onClick={changingState}>
+          <li>
+            <NavLink
+              to="/"
+              name="home"
+              className={
+                status === "home" ? "navbar-link is-active" : "navbar-link"
+              }
+            >
+              Home{" "}
             </NavLink>
-        </li>
-      </ul>
+          </li>
+          <li>
+            <NavLink
+              to="/about"
+              name="about"
+              className={
+                status === "about" ? "navbar-link is-active" : "navbar-link"
+              }
+            >
+              ABOUT
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/product"
+              name="products"
+              className={
+                status === "products" ? "navbar-link is-active" : "navbar-link"
+              }
+            >
+              PRODUCTS
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contact"
+              name="contact"
+              className={
+                status === "contact" ? "navbar-link is-active" : "navbar-link"
+              }
+            >
+              CONTACT
+            </NavLink>
+          </li>
 
-      {/* opening and closing menu two buttons */}
-    
-      <div className="mobile-navbar-btn">
-        <CgMenu name="menu-outline" className="mobile-nav-icon" onClick={()=>setMenuIcon(true)}/>
-        <CgClose name="close-outline" className="mobile-nav-icon close-outline" onClick={()=>setMenuIcon(false)}/>
-      </div>
+          {isAuthenticated && (
+            <li>
+              <p className="username">{user.nickname}</p>
+            </li>
+          )}
 
+          {!isAuthenticated ? (
+            <li>
+              <Button onClick={() => loginWithRedirect()}>Log In</Button>
+            </li>
+          ) : (
+            <li>
+              <Button
+                onClick={() =>
+                  logout({ logoutParams: { returnTo: window.location.origin } })
+                }
+              >
+                Log Out
+              </Button>
+            </li>
+          )}
+          <li></li>
+        </ul>
+        <NavLink
+          onClick={change}
+          to="/cart"
+          className={
+            status === "cart"
+              ? "cart-trolley--link is-active"
+              : "cart-trolley--link"
+          }
+        >
+          <FiShoppingCart className="cart-trolley" />
+          <span className="cart-total--item">{total_item}</span>
+        </NavLink>
+
+        {/* opening and closing menu two buttons */}
+
+        <div className="mobile-navbar-btn">
+          <CgMenu
+            name="menu-outline"
+            className="mobile-nav-icon"
+            onClick={() => setMenuIcon(true)}
+          />
+          <CgClose
+            name="close-outline"
+            className="mobile-nav-icon close-outline"
+            onClick={() => setMenuIcon(false)}
+          />
+        </div>
       </div>
     </Wrapper>
-  )
-}
+  );
+};
 
-const Wrapper=style.nav`
+const Wrapper = style.nav`
 
 .navbar{
     height: 100%;
@@ -103,14 +152,15 @@ const Wrapper=style.nav`
                 text-transform: uppercase;
                 color: black;
                 transition: color 0.3s linear;
-            
+                
 
             &:hover{
-                color: ${({theme})=> theme.colors.helper};
+                color: ${({ theme }) => theme.colors.helper};
             }
+            
         }
         .is-active{
-            color: ${({theme})=> theme.colors.helper};
+            color: ${({ theme }) => theme.colors.helper};
         }
     }
     .mobile-navbar-btn{
@@ -128,12 +178,13 @@ const Wrapper=style.nav`
     
     .cart-trolley--link{
         position: relative;
-
+        color:#3a3a3a;
         .cart-trolley{
             position: relative;
             font-size: 3.2rem;
             width: 2rem;
         }
+            
 
         .cart-total--item{
             width: 2.4rem;
@@ -145,9 +196,12 @@ const Wrapper=style.nav`
             place-items: center;
             top: -20%;
             left: 70%;
-            background-color: ${({theme})=> theme.colors.helper}
+            background-color: ${({ theme }) => theme.colors.helper}
         }
     }
+        .is-active{
+            color: ${({ theme }) => theme.colors.helper};
+        }
 
     .user-login--name{
         text-transform: capitalize;
@@ -163,15 +217,15 @@ const Wrapper=style.nav`
 
 //  media query --------------
 
-    @media(max-width:${({theme})=> theme.media.mobile}){
+    @media(max-width:${({ theme }) => theme.media.mobile}){
     .mobile-navbar-btn{
         display: inline-block;
         z-index: 9999;
-        border: ${({theme})=> theme.colors.black};
+        border: ${({ theme }) => theme.colors.black};
 
         .mobile-nav-icon{
             font-size: 4.2rem;
-            color: ${({theme})=> theme.colors.black}
+            color: ${({ theme }) => theme.colors.black}
         }
     }
 
@@ -181,7 +235,7 @@ const Wrapper=style.nav`
         position: absolute;
         top: 5%;
         right: 10%;
-        color: ${({theme})=> theme.colors.black};
+        color: ${({ theme }) => theme.colors.black};
         z-index: 9999;
     }
 
@@ -240,6 +294,6 @@ const Wrapper=style.nav`
         font-size: 2.2rem;
         padding: 0.8rem 1.4rem;
     }
-}`
+}`;
 
-export default Nav
+export default Nav;

@@ -4,15 +4,15 @@ import CartItem from "./components/CartItem";
 import { NavLink } from "react-router-dom";
 import { Button } from "./styles/Button";
 import FormatPrice from "./Helpers/FormatPrice";
-
+import img from './images/empty-cart.png'
 const Cart = () => {
   const { cart, clearCart, total_price, shipping_fee } = useCartContext();
-
+  document.documentElement.scrollTop = 0
   if (cart.length === 0) {
     return (
       <EmptyDiv>
         {/* <h3>No Item in Cart </h3> */}
-        <img src={require("images/empty-cart.png")} alt="" />
+        <img src={img} alt="" />
       </EmptyDiv>
     );
   }
