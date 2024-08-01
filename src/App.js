@@ -12,7 +12,7 @@ import {ThemeProvider} from 'styled-components'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import theme from './Helpers/theme'
 import {ProductShimmer,AboutShimmer} from './Helpers/Shimmer'
-
+import { HashRouter } from 'react-router-dom';
 // lazy loading
 const About = lazy(()=> import("./About"))
 const Products = lazy(()=> import("./Products"))
@@ -20,7 +20,7 @@ const Products = lazy(()=> import("./Products"))
 function App() {
   return (
     <ThemeProvider theme={theme}>
-    <Router>
+    <HashRouter>
       <GlobalStyle/>
       <Header/>
       <Routes>
@@ -33,7 +33,7 @@ function App() {
         <Route path="*" element={<Error/>} />
       </Routes>
       <Footer/>
-    </Router>
+    </HashRouter>
     </ThemeProvider>
   );
 }
