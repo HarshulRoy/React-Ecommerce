@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkecom=self.webpackChunkecom||[]).push([[549],{8549:(e,n,c)=>{c.r(n),c.d(n,{default:()=>i});var s,a=c(7528),m=(c(5043),c(7760)),t=c(1779),h=c(579);const o=t.Ay.section(s||(s=(0,a.A)(["\n  width: 100%;\n  height: 100%;\n  margin: auto;\n"]))),i=()=>(0,h.jsxs)(o,{children:[(0,h.jsx)(m.A,{myName:{name:"Roy Ecommerce"}}),";"]})}}]);
+//# sourceMappingURL=549.cb3b8cb0.chunk.js.map
