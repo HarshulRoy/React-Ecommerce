@@ -1,7 +1,7 @@
 {
   "name": "ecom",
   "version": "0.1.0",
-  "homepage": "https://harshulroy.github.io/ReactEcommerce",
+  "homepage": "https://harshulroy.github.io/React-Ecommerce",
   "private": true,
   "main": "index.html",
   "dependencies": {
