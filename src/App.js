@@ -17,7 +17,7 @@ import { HashRouter } from 'react-router-dom';
 const About = lazy(()=> import("./About"))
 const Products = lazy(()=> import("./Products"))
 
-function App() {
+function App() { 
   return (
     <ThemeProvider theme={theme}>
     <HashRouter>
